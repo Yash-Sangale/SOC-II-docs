@@ -47,18 +47,18 @@ jobs:
             --push \
             dev "Development Preview"
 
-      - name: Deploy Stable (main)
+      - name: Deploy latest (main)
         if: github.ref == 'refs/heads/main'
         run: |
           mike set-default \
             --config-file mkdocs.yml \
             --push \
-            stable
+            latest
           mike deploy \
             --config-file mkdocs.yml \
             --push \
             --update-aliases \
-            stable
+            latest
           
 
       - name: Deploy tagged version
@@ -68,10 +68,10 @@ jobs:
           mike set-default \
             --config-file mkdocs.yml \
             --push \
-            stable
+            latest
           mike deploy \
             --config-file mkdocs.yml \
             --push \
             --update-aliases \
-            "$VERSION" stable
+            "$VERSION" latest
           
