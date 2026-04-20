@@ -180,6 +180,6 @@ This documentation is intended for:
   * Computer architecture concepts
   * C programming
   * CPU pipeline fundamentals
-* All examples are simplified for clarity but retain technical accuracy.  
+* All examples are simplified for clarity but retain technical accuracy.
 
 ---
