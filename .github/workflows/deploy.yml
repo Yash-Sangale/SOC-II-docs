@@ -38,7 +38,6 @@ jobs:
 
       - name: Deploy dev
         if: github.ref == 'refs/heads/dev'
-        working-directory: docs
         run: |
           mike deploy \
             --config-file mkdocs.yml \
@@ -51,7 +50,6 @@ jobs:
 
       - name: Deploy latest (main)
         if: github.ref == 'refs/heads/main'
-        working-directory: docs
         run: |
           mike deploy \
             --config-file mkdocs.yml \
@@ -65,7 +63,6 @@ jobs:
 
       - name: Deploy tagged version
         if: startsWith(github.ref, 'refs/tags/')
-        working-directory: docs
         run: |
           VERSION=${GITHUB_REF#refs/tags/}
           mike deploy \
