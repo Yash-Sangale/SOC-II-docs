@@ -1,5 +1,4 @@
 name: Deploy MkDocs with Mike
-
 on:
   push:
     branches:
@@ -7,13 +6,11 @@ on:
       - main
     tags:
       - "v*"
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # owns this repo, no cross-repo auth needed
-
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,37 +38,42 @@ jobs:
 
       - name: Deploy dev
         if: github.ref == 'refs/heads/dev'
+        working-directory: docs
         run: |
           mike deploy \
             --config-file mkdocs.yml \
             --push \
             dev "Development Preview"
-
-      - name: Deploy latest (main)
-        if: github.ref == 'refs/heads/main'
-        run: |
           mike set-default \
             --config-file mkdocs.yml \
             --push \
-            latest
+            dev
+
+      - name: Deploy latest (main)
+        if: github.ref == 'refs/heads/main'
+        working-directory: docs
+        run: |
           mike deploy \
             --config-file mkdocs.yml \
             --push \
             --update-aliases \
             latest
-          
-
-      - name: Deploy tagged version
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          VERSION=${GITHUB_REF#refs/tags/}
           mike set-default \
             --config-file mkdocs.yml \
             --push \
             latest
+
+      - name: Deploy tagged version
+        if: startsWith(github.ref, 'refs/tags/')
+        working-directory: docs
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
           mike deploy \
             --config-file mkdocs.yml \
             --push \
             --update-aliases \
             "$VERSION" latest
-          
+          mike set-default \
+            --config-file mkdocs.yml \
+            --push \
+            latest
