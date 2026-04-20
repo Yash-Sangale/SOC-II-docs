@@ -1,0 +1,122 @@
+site_name: Specter and Meltdown Attack
+site_description: Research on Specter and Meltdown Attack on RISC-V
+site_author: Yash Balu Sangale
+site_url: https://yash-sangale.github.io/SOC-II-docs/
+
+docs_dir: contents
+
+repo_name: Yash-Sangale/SOC-II-docs
+repo_url: https://github.com/Yash-Sangale/SOC-II-docs
+edit_uri: edit/dev/docs/contents/
+
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    # Navigation (PRIMARY UX)
+    - navigation.sections        # Group nav into sections (DevZone, Docs, etc.)
+    - navigation.expand          # Expand sidebar by default
+    - navigation.prune    # Show FULL navigation tree (important)
+    - navigation.top             # "Back to top" button
+    - navigation.path            # Breadcrumbs (very useful)
+    - navigation.footer          # Prev / Next navigation
+
+    # Table of Contents (RIGHT SIDEBAR)
+    - toc.follow                 # Highlight current section while scrolling
+
+    # Content Enhancements
+    - content.tabs.link          # Sync tabs (useful later)
+    - content.code.copy          # Copy button for code blocks
+    - content.code.annotate      # Code annotations support
+
+    # Search (UX polish)
+    - search.highlight
+    - search.suggest
+    - search.share
+
+    # Misc
+    - announce.dismiss           # Dismissible banner support
+  icon:
+    repo: fontawesome/brands/github
+  font:
+    text: Inter
+    code: JetBrains Mono
+
+markdown_extensions:
+  - admonition
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.keys
+  - pymdownx.mark
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - def_list
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+plugins:
+  - search
+  - glightbox
+  - mike:
+      alias_type: symlink
+      canonical_version: latest
+
+extra:
+  version:
+    provider: mike
+    default: latest
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Yash-Sangale/esp-rc-car-docs.git
+
+nav:
+  - Home: index.md
+  - Overview : overview.md
+  - Background:
+    - Meltdown: background/meltdown.md
+    - Specter: background/spectre.md
+    - Side Channel: background/side_channel.md
+  - Architecture:
+    - Preconditions: architecture/preconditions.md
+    - RISC-V Design: architecture/riscv_design.md
+    - Vulnerability Analysis: architecture/vulnerability_analysis.md
+  - Attacks:
+    - Meltdown: attacks/meltdown_attack.md
+    - Specter: attacks/spectre_attack.md
+    - RISC-V Failure Analysis: attacks/riscv_failure_analysis.md
+  - Countermeasures: countermeasures.md
+  - Conclusoin: conclusion.md
+  - References: references.md
