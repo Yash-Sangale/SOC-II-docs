@@ -1,0 +1,76 @@
+name: Deploy MkDocs with Mike
+on:
+  push:
+    branches:
+      - dev
+      - main
+    tags:
+      - "v*"
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install mkdocs-material \
+                      mkdocs-glightbox \
+                      mike
+
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch gh-pages
+        run: git fetch origin gh-pages --depth=1 || true
+
+      - name: Deploy dev
+        if: github.ref == 'refs/heads/dev'
+        run: |
+          mike deploy \
+            --config-file mkdocs.yml \
+            --push \
+            dev "Development Preview"
+          mike set-default \
+            --config-file mkdocs.yml \
+            --push \
+            dev
+
+      - name: Deploy latest (main)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          mike deploy \
+            --config-file mkdocs.yml \
+            --push \
+            --update-aliases \
+            latest
+          mike set-default \
+            --config-file mkdocs.yml \
+            --push \
+            latest
+
+      - name: Deploy tagged version
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          mike deploy \
+            --config-file mkdocs.yml \
+            --push \
+            --update-aliases \
+            "$VERSION" latest
+          mike set-default \
+            --config-file mkdocs.yml \
+            --push \
+            latest
