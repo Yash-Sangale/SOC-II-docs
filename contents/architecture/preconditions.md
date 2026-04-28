@@ -8,7 +8,7 @@
 
 Meltdown and Spectre are not universally applicable vulnerabilities. Their feasibility depends on the presence of specific **microarchitectural and architectural features**.
 
-Three independent conditions must hold simultaneously for these attacks to be exploitable .
+"Three independent conditions must hold simultaneously for these attacks to be exploitable.[^1][^2]"
 
 ---
 
@@ -184,7 +184,7 @@ are simultaneously present.
 
 ## Architectural Minimalism vs Vulnerability
 
-From the analysis :
+"From the analysis:[^1][^2][^8]"
 
 * Removing **privilege separation** eliminates Meltdown
 * Removing **branch prediction** eliminates Spectre
@@ -217,3 +217,7 @@ This highlights:
     Architectural design choices directly determine whether transient execution attacks are possible.
 
 ---
+
+[^1]: Lipp et al., *Meltdown*, USENIX Security 2018. [→ References](../references.md#ref-1)
+[^2]: Kocher et al., *Spectre Attacks*, IEEE S&P 2019. [→ References](../references.md#ref-2)
+[^8]: Patterson & Hennessy, *Computer Organization and Design: RISC-V Edition*, 2017. [→ References](../references.md#ref-8)

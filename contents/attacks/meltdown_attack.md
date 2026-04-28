@@ -23,7 +23,7 @@ The attack exploits a **transient execution window** created between:
 
 * Read **privileged (kernel) memory** from an unprivileged context
 * Bypass architectural access control using **speculative execution**
-* Extract data via **cache timing side-channel** 
+* Extract data via **cache timing side-channel**[^1][^6]
 
 ---
 
@@ -70,7 +70,7 @@ Typical methods:
 
 * x86: `clflush`
 * RISC-V: `cbo.inval` (Zicbom) or eviction loops
-
+[^4]
 ---
 
 ### 2. Transient Faulting Load
@@ -172,7 +172,7 @@ This difference provides:
 
 Empirical results (from literature):
 
-* ~500–2000 bytes/sec
+* ~500–2000 bytes/sec[^1]
 * ~2–8 seconds for 4 KB memory page
 
 ??? note
@@ -235,7 +235,7 @@ In contrast to the analyzed microcontroller:
 * No MMU → no page table walk
 * No privilege separation → no protected memory
 * No page faults → no transient fault window
-
+[^3]
 ??? warning
     The Meltdown sequence cannot be instantiated without a faulting access condition.
 
@@ -265,3 +265,9 @@ In contrast to the analyzed microcontroller:
     Meltdown is fundamentally a race between data access and permission enforcement, observable via cache state.
 
 ---
+[^1]: Lipp et al., *Meltdown*, USENIX Security 2018. [→ References](../references.md#ref-1)
+[^3]: RISC-V International, *Privileged Architecture Manual v20211203*. [→ References](../references.md#ref-3)
+[^4]: RISC-V International, *Zicbom Extension v1.0*. [→ References](../references.md#ref-4)
+[^5]: Intel Corporation, *Analysis of Speculative Execution Side Channels*, 2018. [→ References](../references.md#ref-5)
+[^6]: Gruss et al., *Flush+Flush*, DIMVA 2016. [→ References](../references.md#ref-6)
+[^8]: Patterson & Hennessy, *Computer Organization and Design: RISC-V Edition*, 2017. [→ References](../references.md#ref-8)

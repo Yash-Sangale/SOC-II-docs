@@ -20,7 +20,7 @@ Unlike Meltdown, Spectre manipulates **control flow speculation** rather than ex
 
 * Force a victim to execute **attacker-influenced speculative paths**
 * Access sensitive data during speculation
-* Leak data via **cache timing side-channel** 
+* Leak data via **cache timing side-channel**[^1][^2] 
 
 ---
 
@@ -176,7 +176,7 @@ Both variants rely on:
 * Cache state modification
 * Timing-based observation
 
-Measurement example (RISC-V):
+Measurement example (RISC-V): Timing measurement using RISC-V cycle counter:[^3]
 
 ```c {#4a7m9o}
 uint64_t t0, t1;
@@ -255,7 +255,7 @@ However:
 
 Implications:
 
-* Spectre V2 → Not applicable
+* Spectre V2 → Not applicable[^3]
 * Spectre V1 → Only relevant in multi-component software systems
 
 ??? note
@@ -288,3 +288,8 @@ Implications:
     Spectre is a control-flow manipulation attack that leverages speculation to expose data without violating architectural access rules.
 
 ---
+[^1]: Lipp et al., *Meltdown*, USENIX Security 2018. [→ References](../references.md#ref-1)
+[^2]: Kocher et al., *Spectre Attacks*, IEEE S&P 2019. [→ References](../references.md#ref-2)
+[^3]: RISC-V International, *Privileged Architecture Manual v20211203*. [→ References](../references.md#ref-3)
+[^5]: Intel Corporation, *Analysis of Speculative Execution Side Channels*, 2018. [→ References](../references.md#ref-5)
+[^8]: Patterson & Hennessy, *Computer Organization and Design: RISC-V Edition*, 2017. [→ References](../references.md#ref-8)

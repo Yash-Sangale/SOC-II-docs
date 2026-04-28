@@ -6,7 +6,7 @@
 
 ## Context
 
-This section defines the **target architecture** used for vulnerability evaluation. The analysis is performed on a **64-bit single-core RISC-V microcontroller** designed with minimal system complexity and no operating system support.
+This section defines the **target architecture** used for vulnerability evaluation. The analysis is performed on a **64-bit single-core RISC-V microcontroller**[^3] designed with minimal system complexity and no operating system support.
 
 The architectural choices directly determine the **presence or absence of attack preconditions**.
 
@@ -122,7 +122,7 @@ The processor operates in a **single privilege domain**:
 
 ## Cache Architecture
 
-* 2-way set-associative cache
+* 2-way set-associative[^8] cache
 * Shared across all executing code
 
 ### Properties
@@ -136,13 +136,13 @@ The processor operates in a **single privilege domain**:
 * No hardware partitioning or isolation
 
 ??? warning
-The cache remains a shared observable resource and can act as a leakage channel.
+Cache remains a shared observable resource and can act as a leakage channel.[^1][^6]
 
 ---
 
 ## Branch Prediction
 
-* Hardware branch predictor is present
+* Hardware branch predictor is present[^2][^8]
 * Likely implementation:
     * 2-bit saturating counters
     * Branch Target Buffer (BTB)
@@ -262,3 +262,9 @@ Implications:
     The absence of privilege and memory protection mechanisms eliminates entire vulnerability classes but does not remove microarchitectural leakage channels.
 
 ---
+
+[^1]: Lipp et al., *Meltdown*, USENIX Security 2018. [→ References](../references.md#ref-1)
+[^2]: Kocher et al., *Spectre Attacks*, IEEE S&P 2019. [→ References](../references.md#ref-2)
+[^3]: RISC-V International, *Privileged Architecture Manual v20211203*. [→ References](../references.md#ref-3)
+[^6]: Gruss et al., *Flush+Flush*, DIMVA 2016. [→ References](../references.md#ref-6)
+[^8]: Patterson & Hennessy, *Computer Organization and Design: RISC-V Edition*, 2017. [→ References](../references.md#ref-8)

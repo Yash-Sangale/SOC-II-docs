@@ -11,7 +11,7 @@ Although Meltdown is not applicable to the analyzed RISC-V microcontroller, **Sp
 This section presents:
 
 * Countermeasures applicable to the **target microcontroller design**
-* Reference countermeasures used in **privileged processors** for comparison 
+* Reference countermeasures used in **privileged processors** for comparison[^5][^1][^2]
 
 ---
 
@@ -198,7 +198,7 @@ These are not required for the current design but provide context.
 
 ---
 
-### 1. KPTI (Kernel Page Table Isolation)
+### 1. KPTI (Kernel Page Table Isolation)[^5]
 
 #### Mechanism
 
@@ -214,7 +214,7 @@ Introduces TLB flush overhead on context switches.
 
 ---
 
-### 2. Retpoline
+### 2. Retpoline[^5]
 
 #### Mechanism
 
@@ -226,7 +226,7 @@ Introduces TLB flush overhead on context switches.
 
 ---
 
-### 3. IBRS / IBPB / STIBP
+### 3. IBRS / IBPB / STIBP[^5]
 
 #### Mechanism
 
@@ -312,3 +312,8 @@ F -->|Noise| C
     The most effective countermeasure is architectural: aligning microarchitectural state changes with instruction commit semantics.
 
 ---
+[^1]: Lipp et al., *Meltdown*, USENIX Security 2018. [→ References](../references.md#ref-1)
+[^2]: Kocher et al., *Spectre Attacks*, IEEE S&P 2019. [→ References](../references.md#ref-2)
+[^3]: RISC-V International, *Privileged Architecture Manual v20211203*. [→ References](../references.md#ref-3)
+[^4]: RISC-V International, *Zicbom Extension v1.0*. [→ References](../references.md#ref-4)
+[^5]: Intel Corporation, *Analysis of Speculative Execution Side Channels*, 2018. [→ References](../references.md#ref-5)

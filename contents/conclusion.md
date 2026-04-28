@@ -6,7 +6,7 @@
 
 ## Summary of Findings
 
-This work evaluated the applicability of **Meltdown** and **Spectre** on a **64-bit RISC-V microcontroller** by analyzing required architectural preconditions and mapping them to the implemented design .
+This work evaluated the applicability of **Meltdown** and **Spectre** on a **64-bit RISC-V microcontroller** by analyzing required architectural preconditions and mapped them to the implemented design.[^1][^2][^3]
 
 The results show that vulnerability is not determined solely by:
 
@@ -35,7 +35,7 @@ The fundamental condition required to create a transient fault window is absent.
 
 **Result:**
 
-* Meltdown is **structurally impossible**
+* Meltdown is **structurally impossible**[^1]
 
 ---
 
@@ -63,7 +63,7 @@ The fundamental condition required to create a transient fault window is absent.
 **Result:**
 
 * Not applicable in single trust domain
-* **Conditionally possible** in multi-component software systems
+* **Conditionally possible** in multi-component software systems[^2]
 
 ??? warning
     The hardware does not prevent cross-component leakage when software isolation is absent.
@@ -168,3 +168,7 @@ The design reflects a fundamental trade-off:
     The analyzed RISC-V microcontroller achieves security through architectural minimalism, eliminating attack preconditions rather than mitigating them.
 
 ---
+[^1]: Lipp et al., *Meltdown*, USENIX Security 2018. [→ References](../references.md#ref-1)
+[^2]: Kocher et al., *Spectre Attacks*, IEEE S&P 2019. [→ References](../references.md#ref-2)
+[^3]: RISC-V International, *Privileged Architecture Manual v20211203*. [→ References](../references.md#ref-3)
+[^6]: Gruss et al., *Flush+Flush*, DIMVA 2016. [→ References](../references.md#ref-6)
