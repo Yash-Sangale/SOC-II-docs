@@ -555,6 +555,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#demonstration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Demonstration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#required-architectural-conditions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1188,6 +1199,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#demonstration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Demonstration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#required-architectural-conditions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1316,15 +1338,11 @@
 </div>
 <hr>
 <h2 id="definition">Definition<a class="headerlink" href="#definition" title="Permanent link">¶</a></h2>
-<p>Meltdown (CVE-2017-5754) is a <strong>transient execution attack</strong> that exploits the delay between:</p>
-<ul>
-<li><strong>Speculative execution of instructions</strong></li>
-<li><strong>Enforcement of memory access permissions</strong></li>
-</ul>
-<p>It allows an unprivileged context to <strong>read privileged memory</strong> by leveraging microarchitectural side-effects, primarily cache state changes.</p>
+<p>Meltdown (CVE-2017-5754) is a <strong>transient execution attack</strong> that exploits the delay between speculative execution of instructions and enforcement of memory access permissions.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
+<p>It allows an unprivileged context to <strong>read privileged memory</strong> by leveraging microarchitectural side-effects — primarily cache state changes.<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
 <hr>
 <h2 id="root-cause">Root Cause<a class="headerlink" href="#root-cause" title="Permanent link">¶</a></h2>
-<p>Modern processors perform <strong>out-of-order (OoO) execution</strong> to improve performance. Instructions are executed before it is fully verified whether they are:</p>
+<p>Modern processors perform <strong>out-of-order (OoO) execution</strong> to improve performance<sup id="fnref:8"><a class="footnote-ref" href="#fn:8">7</a></sup>. Instructions are executed before it is fully verified whether they are:</p>
 <ul>
 <li>Architecturally valid</li>
 <li>Permitted by privilege rules</li>
@@ -1339,12 +1357,12 @@
 <ul>
 <li>A <strong>fault is eventually raised</strong></li>
 <li>Architectural state is rolled back</li>
-<li><strong>Microarchitectural state is not reverted</strong></li>
+<li><strong>Microarchitectural state is not reverted</strong><sup id="fnref5:1"><a class="footnote-ref" href="#fn:1">1</a></sup></li>
 </ul>
 <p>This creates a <strong>transient window</strong> where unauthorized data is usable.</p>
 <details class="note">
 <summary>Note</summary>
-<p>The vulnerability arises from the lack of synchronization between data access and permission validation.</p>
+<p>The vulnerability arises from the lack of synchronization between data access and permission validation.<sup id="fnref6:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
 </details>
 <hr>
 <h2 id="execution-flow">Execution Flow<a class="headerlink" href="#execution-flow" title="Permanent link">¶</a></h2>
@@ -1409,9 +1427,270 @@ F --&gt; G[Timing Measurement]</code></pre>
 <li>Cache miss → high latency (DRAM access)</li>
 </ul>
 <p>The fastest access reveals the secret value.</p>
+<h2 id="demonstration">Demonstration<a class="headerlink" href="#demonstration" title="Permanent link">¶</a></h2>
+<div class="meltdown-sim">
+
+<style>
+.meltdown-sim {
+  font-family: var(--md-text-font);
+  margin: 1.5rem 0;
+}
+
+/* Header */
+.topbar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.badge {
+  padding:4px 8px;
+  border-radius:6px;
+  font-size:11px;
+}
+
+.perm-ok { background:#2e7d32; color:white; }
+.perm-wait { background:#f9a825; color:black; }
+.perm-fault { background:#c62828; color:white; }
+
+/* Toggle */
+.toggle {
+  cursor:pointer;
+  padding:4px 10px;
+  border-radius:6px;
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+}
+
+/* Pipeline */
+.pipeline {
+  display:grid;
+  grid-template-columns: repeat(6,1fr);
+  gap:8px;
+}
+
+.stage {
+  border:1px solid var(--md-default-fg-color--light);
+  border-radius:8px;
+  padding:8px;
+  min-height:70px;
+  text-align:center;
+  transition: all 0.3s ease;
+}
+
+.stage.perm {
+  border-color:#f9a825;
+}
+
+/* Titles */
+.title {
+  font-size:11px;
+  font-weight:bold;
+}
+
+/* Instruction */
+.inst {
+  font-size:11px;
+  margin-top:5px;
+  padding:4px;
+  border-radius:4px;
+  background: var(--md-primary-fg-color--light);
+  color: var(--md-primary-bg-color);
+  transition: transform 0.2s;
+}
+
+/* Secret */
+.secret {
+  background:#ffebee;
+  border:1px solid #e53935;
+}
+
+/* Trigger */
+.trigger {
+  border:2px solid #e53935;
+  transform: scale(1.05);
+}
+
+/* Popup */
+.popup {
+  margin-top:10px;
+  padding:10px;
+  border-radius:8px;
+  background: var(--md-code-bg-color);
+  font-size:12px;
+  animation: fade 0.3s ease;
+}
+
+@keyframes fade {
+  from {opacity:0; transform:translateY(-5px);}
+  to {opacity:1;}
+}
+
+/* Controls */
+.controls {
+  margin-top:10px;
+  display:flex;
+  gap:8px;
+}
+.controls button {
+  border:none;
+  padding:6px 10px;
+  border-radius:6px;
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  cursor:pointer;
+}
+</style>
+
+<div class="topbar">
+  <div><b>Cycle:</b> <span id="cycle">0</span></div>
+  <div>
+    <span id="permBadge" class="badge perm-wait">Checking</span>
+    <span class="toggle" onclick="toggleMode()">Mode: <span id="mode">ATTACK</span></span>
+  </div>
+</div>
+
+<div class="pipeline" id="pipe"></div>
+
+<div class="popup" id="popup">
+Click ▶ to start simulation
+</div>
+
+<div class="controls">
+  <button onclick="prev()">⏮</button>
+  <button onclick="auto()">▶</button>
+  <button onclick="next()">⏭</button>
+  <button onclick="reset()">🔁</button>
+</div>
+
+<script>
+const stages = ["IF","ID","EX","MEM","WB","PERM"];
+
+let cycle = 0;
+let timer = null;
+let attackMode = true;
+
+/* Timeline (Attack vs Normal) */
+const attackTimeline = [
+ ["Load","","","","",""],
+ ["","Load","","","","Check"],
+ ["","","Load","","","Checking"],
+ ["","","","Load(secret)","","Pending"],
+ ["","","","","Encode","Pending"],
+ ["","","","","","FAULT"],
+];
+
+const normalTimeline = [
+ ["Load","","","","",""],
+ ["","Load","","","","Check"],
+ ["","","Load","","","GRANTED"],
+ ["","","","Blocked","","DONE"],
+];
+
+const explainAttack = [
+ "Fetch load instruction",
+ "Decode + permission starts",
+ "Pipeline continues",
+ "⚠ Secret loaded BEFORE permission check",
+ "Secret encoded into cache",
+ "Fault raised → too late"
+];
+
+const explainNormal = [
+ "Fetch instruction",
+ "Decode + permission",
+ "Permission resolved EARLY",
+ "Access blocked → no leak"
+];
+
+function render(){
+  let timeline = attackMode ? attackTimeline : normalTimeline;
+  let explain = attackMode ? explainAttack : explainNormal;
+
+  const pipe = document.getElementById("pipe");
+  pipe.innerHTML="";
+
+  for(let i=0;i<stages.length;i++){
+    let cell = document.createElement("div");
+    cell.className = "stage";
+    if(stages[i]==="PERM") cell.classList.add("perm");
+
+    let content = timeline[cycle]?.[i] || "";
+
+    let cls="";
+    if(content.includes("secret")) cls="secret";
+    if(attackMode && cycle===3 && i===3) cls="trigger";
+
+    cell.innerHTML = `<div class="title">${stages[i]}</div>
+                      <div class="inst ${cls}">${content}</div>`;
+
+    pipe.appendChild(cell);
+  }
+
+  document.getElementById("cycle").innerText = cycle;
+
+  /* Permission badge */
+  let perm = timeline[cycle]?.[5] || "";
+  let badge = document.getElementById("permBadge");
+
+  if(perm.includes("FAULT")){
+    badge.className="badge perm-fault";
+    badge.innerText="FAULT";
+  }
+  else if(perm.includes("GRANTED")){
+    badge.className="badge perm-ok";
+    badge.innerText="GRANTED";
+  }
+  else{
+    badge.className="badge perm-wait";
+    badge.innerText="Checking";
+  }
+
+  document.getElementById("popup").innerText = explain[cycle] || "";
+}
+
+function next(){
+  let max = (attackMode ? attackTimeline.length : normalTimeline.length)-1;
+  if(cycle < max) cycle++;
+  render();
+}
+
+function prev(){
+  if(cycle>0) cycle--;
+  render();
+}
+
+function reset(){
+  cycle=0;
+  render();
+}
+
+function auto(){
+  if(timer){
+    clearInterval(timer);
+    timer=null;
+    return;
+  }
+  timer=setInterval(()=>{
+    next();
+  },1200);
+}
+
+function toggleMode(){
+  attackMode = !attackMode;
+  document.getElementById("mode").innerText = attackMode ? "ATTACK" : "NORMAL";
+  reset();
+}
+
+render();
+</script>
+
+</div>
+
 <hr>
 <h2 id="required-architectural-conditions">Required Architectural Conditions<a class="headerlink" href="#required-architectural-conditions" title="Permanent link">¶</a></h2>
-<p>Meltdown requires all of the following:</p>
+<p>Meltdown requires all of the following<sup id="fnref3:1"><a class="footnote-ref" href="#fn:1">1</a></sup><sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup>:</p>
 <table>
 <thead>
 <tr>
@@ -1448,10 +1727,10 @@ F --&gt; G[Timing Measurement]</code></pre>
 </details>
 <hr>
 <h2 id="affected-systems">Affected Systems<a class="headerlink" href="#affected-systems" title="Permanent link">¶</a></h2>
-<p>Meltdown primarily affects:</p>
+<p>Meltdown primarily affects<sup id="fnref4:1"><a class="footnote-ref" href="#fn:1">1</a></sup><sup id="fnref2:5"><a class="footnote-ref" href="#fn:5">5</a></sup><sup id="fnref:7"><a class="footnote-ref" href="#fn:7">6</a></sup>:</p>
 <ul>
 <li>Intel processors (post-1995, OoO-based)</li>
-<li>Selected ARM cores (with similar execution behavior)</li>
+<li>Selected ARM cores (with similar execution behavior)<sup id="fnref2:7"><a class="footnote-ref" href="#fn:7">6</a></sup></li>
 </ul>
 <p>Processors with:</p>
 <ul>
@@ -1459,12 +1738,12 @@ F --&gt; G[Timing Measurement]</code></pre>
 <li>Early permission checks</li>
 <li>No shared cache</li>
 </ul>
-<p>are generally not vulnerable.</p>
+<p>are generally not vulnerable<sup id="fnref2:8"><a class="footnote-ref" href="#fn:8">7</a></sup>.</p>
 <hr>
 <h2 id="key-property">Key Property<a class="headerlink" href="#key-property" title="Permanent link">¶</a></h2>
 <p>The defining characteristic of Meltdown is:</p>
 <blockquote>
-<p><strong>Unauthorized data is transiently accessible before the CPU enforces access control.</strong></p>
+<p><strong>Unauthorized data is transiently accessible before the CPU enforces access control<sup id="fnref7:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</strong></p>
 </blockquote>
 <p>This is not a software bug but a consequence of:</p>
 <ul>
@@ -1488,7 +1767,7 @@ F --&gt; G[Timing Measurement]</code></pre>
 <ul>
 <li>Exploits <strong>delay between speculative execution and permission checks</strong></li>
 <li>Reads <strong>privileged memory from unprivileged context</strong></li>
-<li>Uses <strong>cache timing side-channel</strong> for data exfiltration</li>
+<li>Uses <strong>cache timing side-channel</strong> for data exfiltration<sup id="fnref8:1"><a class="footnote-ref" href="#fn:1">1</a></sup><sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></li>
 <li>
 <p>Requires:</p>
 <ul>
@@ -1505,6 +1784,32 @@ F --&gt; G[Timing Measurement]</code></pre>
 <p>Meltdown is fundamentally a privilege boundary violation enabled by transient execution, not merely a cache side-channel attack.</p>
 </div>
 <hr>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Lipp et al., <em>Meltdown: Reading Kernel Memory from User Space</em>, USENIX Security 2018. <a href="../../references/#ref-1">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref3:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref4:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref5:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref6:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref7:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref8:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:2">
+<p>Kocher et al., <em>Spectre Attacks: Exploiting Speculative Execution</em>, IEEE S&amp;P 2019. <a href="../../references/#ref-2">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn:3">
+<p>RISC-V International, <em>Privileged Architecture Manual v20211203</em>. <a href="../../references/#ref-3">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+<li id="fn:4">
+<p>RISC-V International, <em>Zicbom Extension v1.0</em>. <a href="../../references/#ref-4">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">↩</a></p>
+</li>
+<li id="fn:5">
+<p>Intel Corporation, <em>Analysis of Speculative Execution Side Channels</em>, 2018. <a href="../../references/#ref-5">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">↩</a><a class="footnote-backref" href="#fnref2:5" title="Jump back to footnote 5 in the text">↩</a></p>
+</li>
+<li id="fn:7">
+<p>ARM Limited, <em>Cache Speculation Side-channels</em>, 2018. <a href="../../references/#ref-7">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:7" title="Jump back to footnote 6 in the text">↩</a><a class="footnote-backref" href="#fnref2:7" title="Jump back to footnote 6 in the text">↩</a></p>
+</li>
+<li id="fn:8">
+<p>Patterson &amp; Hennessy, <em>Computer Organization and Design: RISC-V Edition</em>, 2017. <a href="../../references/#ref-8">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:8" title="Jump back to footnote 7 in the text">↩</a><a class="footnote-backref" href="#fnref2:8" title="Jump back to footnote 7 in the text">↩</a></p>
+</li>
+</ol>
+</div>
 
 
 

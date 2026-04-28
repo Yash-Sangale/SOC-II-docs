@@ -1618,7 +1618,7 @@
 </div>
 <hr>
 <h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">¶</a></h2>
-<p>This section defines the <strong>target architecture</strong> used for vulnerability evaluation. The analysis is performed on a <strong>64-bit single-core RISC-V microcontroller</strong> designed with minimal system complexity and no operating system support.</p>
+<p>This section defines the <strong>target architecture</strong> used for vulnerability evaluation. The analysis is performed on a <strong>64-bit single-core RISC-V microcontroller</strong><sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup> designed with minimal system complexity and no operating system support.</p>
 <p>The architectural choices directly determine the <strong>presence or absence of attack preconditions</strong>.</p>
 <hr>
 <h2 id="design-specification">Design Specification<a class="headerlink" href="#design-specification" title="Permanent link">¶</a></h2>
@@ -1757,7 +1757,7 @@ E --&gt; F[Commit / Flush]</code></pre>
 <hr>
 <h2 id="cache-architecture">Cache Architecture<a class="headerlink" href="#cache-architecture" title="Permanent link">¶</a></h2>
 <ul>
-<li>2-way set-associative cache</li>
+<li>2-way set-associative<sup id="fnref:8"><a class="footnote-ref" href="#fn:8">5</a></sup> cache</li>
 <li>Shared across all executing code</li>
 </ul>
 <h3 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">¶</a></h3>
@@ -1773,11 +1773,11 @@ E --&gt; F[Commit / Flush]</code></pre>
 <details class="warning">
 <summary>Warning</summary>
 </details>
-<p>The cache remains a shared observable resource and can act as a leakage channel.</p>
+<p>Cache remains a shared observable resource and can act as a leakage channel.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><sup id="fnref:6"><a class="footnote-ref" href="#fn:6">4</a></sup></p>
 <hr>
 <h2 id="branch-prediction">Branch Prediction<a class="headerlink" href="#branch-prediction" title="Permanent link">¶</a></h2>
 <ul>
-<li>Hardware branch predictor is present</li>
+<li>Hardware branch predictor is present<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup><sup id="fnref2:8"><a class="footnote-ref" href="#fn:8">5</a></sup></li>
 <li>Likely implementation:<ul>
 <li>2-bit saturating counters</li>
 <li>Branch Target Buffer (BTB)</li>
@@ -1927,6 +1927,26 @@ E --&gt; F[Commit / Flush]</code></pre>
 <p>The absence of privilege and memory protection mechanisms eliminates entire vulnerability classes but does not remove microarchitectural leakage channels.</p>
 </div>
 <hr>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Lipp et al., <em>Meltdown</em>, USENIX Security 2018. <a href="../../references/#ref-1">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:2">
+<p>Kocher et al., <em>Spectre Attacks</em>, IEEE S&amp;P 2019. <a href="../../references/#ref-2">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn:3">
+<p>RISC-V International, <em>Privileged Architecture Manual v20211203</em>. <a href="../../references/#ref-3">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+<li id="fn:6">
+<p>Gruss et al., <em>Flush+Flush</em>, DIMVA 2016. <a href="../../references/#ref-6">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 4 in the text">↩</a></p>
+</li>
+<li id="fn:8">
+<p>Patterson &amp; Hennessy, <em>Computer Organization and Design: RISC-V Edition</em>, 2017. <a href="../../references/#ref-8">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:8" title="Jump back to footnote 5 in the text">↩</a><a class="footnote-backref" href="#fnref2:8" title="Jump back to footnote 5 in the text">↩</a></p>
+</li>
+</ol>
+</div>
 
 
 

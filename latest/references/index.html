@@ -942,10 +942,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#notes" class="md-nav__link">
+  <a href="#cve-identifiers" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Notes
+        CVE Identifiers
       
     </span>
   </a>
@@ -1042,10 +1042,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#notes" class="md-nav__link">
+  <a href="#cve-identifiers" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Notes
+        CVE Identifiers
       
     </span>
   </a>
@@ -1083,42 +1083,78 @@
 <h1 id="references">References<a class="headerlink" href="#references" title="Permanent link">¶</a></h1>
 <hr>
 <h2 id="core-research-papers">Core Research Papers<a class="headerlink" href="#core-research-papers" title="Permanent link">¶</a></h2>
-<p>[1]{#ref-1} Lipp, M., Schwarz, M., Gruss, D., Prescher, T., Haas, W., Horn, J., Mangard, S.
+<p><span id="ref-1"><strong>[1]</strong></span> Lipp, M., Schwarz, M., Gruss, D., Prescher, T., Haas, W., Horn, J., Mangard, S.
 <strong>Meltdown: Reading Kernel Memory from User Space</strong>.
-USENIX Security Symposium, 2018.</p>
-<p>[2]{#ref-2} Kocher, P., Horn, J., Fogh, A., Genkin, D., Gruss, D., Haas, W., Yarom, Y.
+USENIX Security Symposium, 2018.
+<a class="md-button md-button--primary" href="https://arxiv.org/abs/1801.01207"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 9h5.5L13 3.5zM6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2m9 16v-2H6v2zm3-4v-2H6v2z"></path></svg></span> Paper (arXiv)</a>
+<a class="md-button" href="https://meltdownattack.com/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"></path></svg></span> meltdownattack.com</a></p>
+<p><span id="ref-2"><strong>[2]</strong></span> Kocher, P., Horn, J., Fogh, A., Genkin, D., Gruss, D., Haas, W., Yarom, Y.
 <strong>Spectre Attacks: Exploiting Speculative Execution</strong>.
-IEEE Symposium on Security and Privacy, 2019.</p>
+IEEE Symposium on Security and Privacy, 2019.
+<a class="md-button md-button--primary" href="https://arxiv.org/abs/1801.01203"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 9h5.5L13 3.5zM6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2m9 16v-2H6v2zm3-4v-2H6v2z"></path></svg></span> Paper (arXiv)</a>
+<a class="md-button" href="https://spectreattack.com/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"></path></svg></span> spectreattack.com</a></p>
 <hr>
 <h2 id="architecture-specifications">Architecture Specifications<a class="headerlink" href="#architecture-specifications" title="Permanent link">¶</a></h2>
-<p>[3]{#ref-3} RISC-V International
+<p><span id="ref-3"><strong>[3]</strong></span> RISC-V International.
 <strong>The RISC-V Instruction Set Manual, Volume II: Privileged Architecture</strong>.
-Version 20211203, 2021.</p>
-<p>[4]{#ref-4} RISC-V International
+Version 20211203, 2021.
+<a class="md-button md-button--primary" href="https://github.com/riscv/riscv-isa-manual/releases/download/Priv-v1.12/riscv-privileged-20211203.pdf"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 9h5.5L13 3.5zM6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2m9 16v-2H6v2zm3-4v-2H6v2z"></path></svg></span> Specification (PDF)</a></p>
+<p><span id="ref-4"><strong>[4]</strong></span> RISC-V International.
 <strong>RISC-V Cache Management Operation ISA Extensions (Zicbom)</strong>.
-Version 1.0, 2022.</p>
+Version 1.0, 2022.
+<a class="md-button md-button--primary" href="https://github.com/riscv/riscv-CMOs"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 9h5.5L13 3.5zM6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2m9 16v-2H6v2zm3-4v-2H6v2z"></path></svg></span> Specification</a></p>
 <hr>
 <h2 id="industry-whitepapers">Industry Whitepapers<a class="headerlink" href="#industry-whitepapers" title="Permanent link">¶</a></h2>
-<p>[5]{#ref-5} Intel Corporation
+<p><span id="ref-5"><strong>[5]</strong></span> Intel Corporation.
 <strong>Analysis of Speculative Execution Side Channels</strong>.
-White Paper, Revision 4.0, 2018.</p>
-<p>[6]{#ref-6} ARM Limited
+White Paper, Revision 4.0, 2018.
+<a class="md-button md-button--primary" href="https://newsroom.intel.com/wp-content/uploads/sites/11/2018/01/Intel-Analysis-of-Speculative-Execution-Side-Channels.pdf"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 9h5.5L13 3.5zM6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2m9 16v-2H6v2zm3-4v-2H6v2z"></path></svg></span> Whitepaper (PDF)</a></p>
+<p><span id="ref-7"><strong>[7]</strong></span> ARM Limited.
 <strong>Cache Speculation Side-channels</strong>.
-Whitepaper, Version 2.4, 2018.</p>
+Whitepaper, Version 2.4, 2018.
+<a class="md-button md-button--primary" href="https://developer.arm.com/support/security-update"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 9h5.5L13 3.5zM6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2m9 16v-2H6v2zm3-4v-2H6v2z"></path></svg></span> Whitepaper</a></p>
 <hr>
 <h2 id="side-channel-research">Side-Channel Research<a class="headerlink" href="#side-channel-research" title="Permanent link">¶</a></h2>
-<p>[7]{#ref-7} Gruss, D., Maurice, C., Fogh, A., Mangard, S.
+<p><span id="ref-6"><strong>[6]</strong></span> Gruss, D., Maurice, C., Fogh, A., Mangard, S.
 <strong>Flush+Flush: A Fast and Stealthy Cache Attack</strong>.
-DIMVA, 2016.</p>
+Detection of Intrusions and Malware, and Vulnerability Assessment (DIMVA), 2016.
+<a class="md-button md-button--primary" href="https://gruss.cc/files/flushflush.pdf"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 9h5.5L13 3.5zM6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2m9 16v-2H6v2zm3-4v-2H6v2z"></path></svg></span> Paper (PDF)</a></p>
 <hr>
 <h2 id="textbooks">Textbooks<a class="headerlink" href="#textbooks" title="Permanent link">¶</a></h2>
-<p>[8] Patterson, D. A., Hennessy, J. L.
+<p><span id="ref-8"><strong>[8]</strong></span> Patterson, D. A., Hennessy, J. L.
 <strong>Computer Organization and Design: RISC-V Edition</strong>.
 Morgan Kaufmann, 2017.</p>
 <hr>
-<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">¶</a></h2>
+<h2 id="cve-identifiers">CVE Identifiers<a class="headerlink" href="#cve-identifiers" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>CVE</th>
+<th>Vulnerability</th>
+<th>Variant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CVE-2017-5754</td>
+<td>Meltdown</td>
+<td>Rogue Data Cache Load</td>
+</tr>
+<tr>
+<td>CVE-2017-5753</td>
+<td>Spectre</td>
+<td>Bounds Check Bypass (V1)</td>
+</tr>
+<tr>
+<td>CVE-2017-5715</td>
+<td>Spectre</td>
+<td>Branch Target Injection (V2)</td>
+</tr>
+</tbody>
+</table>
+<hr>
 <div class="admonition note">
-<p>References are grouped by type: foundational papers, architecture specifications, industry analysis, and supporting literature.</p>
+<p>References [1]–[8] are cited inline throughout this documentation using footnote notation <code>[^N]</code>. Each footnote links back to this page.</p>
 </div>
 
 

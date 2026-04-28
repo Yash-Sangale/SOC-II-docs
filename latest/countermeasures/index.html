@@ -1436,7 +1436,7 @@
 <p>This section presents:</p>
 <ul>
 <li>Countermeasures applicable to the <strong>target microcontroller design</strong></li>
-<li>Reference countermeasures used in <strong>privileged processors</strong> for comparison </li>
+<li>Reference countermeasures used in <strong>privileged processors</strong> for comparison<sup id="fnref4:5"><a class="footnote-ref" href="#fn:5">5</a></sup><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></li>
 </ul>
 <hr>
 <h2 id="design-perspective">Design Perspective<a class="headerlink" href="#design-perspective" title="Permanent link">¶</a></h2>
@@ -1632,7 +1632,7 @@ B --&gt;|No| D[Suppress Cache Update]</code></pre>
 <h2 id="reference-countermeasures-privileged-cpus">Reference Countermeasures (Privileged CPUs)<a class="headerlink" href="#reference-countermeasures-privileged-cpus" title="Permanent link">¶</a></h2>
 <p>These are not required for the current design but provide context.</p>
 <hr>
-<h3 id="1-kpti-kernel-page-table-isolation">1. KPTI (Kernel Page Table Isolation)<a class="headerlink" href="#1-kpti-kernel-page-table-isolation" title="Permanent link">¶</a></h3>
+<h3 id="1-kpti-kernel-page-table-isolation">1. KPTI (Kernel Page Table Isolation)<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup><a class="headerlink" href="#1-kpti-kernel-page-table-isolation" title="Permanent link">¶</a></h3>
 <h4 id="mechanism_6">Mechanism<a class="headerlink" href="#mechanism_6" title="Permanent link">¶</a></h4>
 <ul>
 <li>Separate user and kernel page tables</li>
@@ -1647,7 +1647,7 @@ B --&gt;|No| D[Suppress Cache Update]</code></pre>
 </details>
 <p>Introduces TLB flush overhead on context switches.</p>
 <hr>
-<h3 id="2-retpoline">2. Retpoline<a class="headerlink" href="#2-retpoline" title="Permanent link">¶</a></h3>
+<h3 id="2-retpoline">2. Retpoline<sup id="fnref2:5"><a class="footnote-ref" href="#fn:5">5</a></sup><a class="headerlink" href="#2-retpoline" title="Permanent link">¶</a></h3>
 <h4 id="mechanism_7">Mechanism<a class="headerlink" href="#mechanism_7" title="Permanent link">¶</a></h4>
 <ul>
 <li>Replace indirect branches with return-based trampolines</li>
@@ -1657,7 +1657,7 @@ B --&gt;|No| D[Suppress Cache Update]</code></pre>
 <li>Prevents BTB poisoning (Spectre V2)</li>
 </ul>
 <hr>
-<h3 id="3-ibrs-ibpb-stibp">3. IBRS / IBPB / STIBP<a class="headerlink" href="#3-ibrs-ibpb-stibp" title="Permanent link">¶</a></h3>
+<h3 id="3-ibrs-ibpb-stibp">3. IBRS / IBPB / STIBP<sup id="fnref3:5"><a class="footnote-ref" href="#fn:5">5</a></sup><a class="headerlink" href="#3-ibrs-ibpb-stibp" title="Permanent link">¶</a></h3>
 <h4 id="mechanism_8">Mechanism<a class="headerlink" href="#mechanism_8" title="Permanent link">¶</a></h4>
 <ul>
 <li>Restrict sharing of branch predictor state across contexts</li>
@@ -1744,6 +1744,26 @@ F --&gt;|Noise| C</code></pre>
 <p>The most effective countermeasure is architectural: aligning microarchitectural state changes with instruction commit semantics.</p>
 </div>
 <hr>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Lipp et al., <em>Meltdown</em>, USENIX Security 2018. <a href="../references.md#ref-1">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:2">
+<p>Kocher et al., <em>Spectre Attacks</em>, IEEE S&amp;P 2019. <a href="../references.md#ref-2">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn:3">
+<p>RISC-V International, <em>Privileged Architecture Manual v20211203</em>. <a href="../references.md#ref-3">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+<li id="fn:4">
+<p>RISC-V International, <em>Zicbom Extension v1.0</em>. <a href="../references.md#ref-4">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">↩</a></p>
+</li>
+<li id="fn:5">
+<p>Intel Corporation, <em>Analysis of Speculative Execution Side Channels</em>, 2018. <a href="../references.md#ref-5">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">↩</a><a class="footnote-backref" href="#fnref2:5" title="Jump back to footnote 5 in the text">↩</a><a class="footnote-backref" href="#fnref3:5" title="Jump back to footnote 5 in the text">↩</a><a class="footnote-backref" href="#fnref4:5" title="Jump back to footnote 5 in the text">↩</a></p>
+</li>
+</ol>
+</div>
 
 
 

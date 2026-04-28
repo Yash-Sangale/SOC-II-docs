@@ -1529,7 +1529,7 @@
 <hr>
 <h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">¶</a></h2>
 <p>Meltdown and Spectre are not universally applicable vulnerabilities. Their feasibility depends on the presence of specific <strong>microarchitectural and architectural features</strong>.</p>
-<p>Three independent conditions must hold simultaneously for these attacks to be exploitable .</p>
+<p>"Three independent conditions must hold simultaneously for these attacks to be exploitable.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>"</p>
 <hr>
 <h2 id="required-preconditions">Required Preconditions<a class="headerlink" href="#required-preconditions" title="Permanent link">¶</a></h2>
 <table>
@@ -1719,7 +1719,7 @@ G[Privilege Boundary] --&gt; H[Meltdown Only]</code></pre>
 </details>
 <hr>
 <h2 id="architectural-minimalism-vs-vulnerability">Architectural Minimalism vs Vulnerability<a class="headerlink" href="#architectural-minimalism-vs-vulnerability" title="Permanent link">¶</a></h2>
-<p>From the analysis :</p>
+<p>"From the analysis:<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup><sup id="fnref2:2"><a class="footnote-ref" href="#fn:2">2</a></sup><sup id="fnref:8"><a class="footnote-ref" href="#fn:8">3</a></sup>"</p>
 <ul>
 <li>Removing <strong>privilege separation</strong> eliminates Meltdown</li>
 <li>Removing <strong>branch prediction</strong> eliminates Spectre</li>
@@ -1764,6 +1764,20 @@ G[Privilege Boundary] --&gt; H[Meltdown Only]</code></pre>
 <p>Architectural design choices directly determine whether transient execution attacks are possible.</p>
 </div>
 <hr>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Lipp et al., <em>Meltdown</em>, USENIX Security 2018. <a href="../../references/#ref-1">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:2">
+<p>Kocher et al., <em>Spectre Attacks</em>, IEEE S&amp;P 2019. <a href="../../references/#ref-2">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">↩</a><a class="footnote-backref" href="#fnref2:2" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn:8">
+<p>Patterson &amp; Hennessy, <em>Computer Organization and Design: RISC-V Edition</em>, 2017. <a href="../../references/#ref-8">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:8" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+</ol>
+</div>
 
 
 

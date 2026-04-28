@@ -589,6 +589,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#flushreload-interactive-walkthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flush+Reload — Interactive Walkthrough
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#alternative-techniques" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -628,10 +639,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#risc-v-timing-measurement" class="md-nav__link">
+  <a href="#why-the-side-channel-persists" class="md-nav__link">
     <span class="md-ellipsis">
       
-        RISC-V Timing Measurement
+        Why the Side-Channel Persists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#risc-v-specific-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RISC-V Specific Considerations
       
     </span>
   </a>
@@ -1194,6 +1216,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#flushreload-interactive-walkthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flush+Reload — Interactive Walkthrough
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#alternative-techniques" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1233,10 +1266,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#risc-v-timing-measurement" class="md-nav__link">
+  <a href="#why-the-side-channel-persists" class="md-nav__link">
     <span class="md-ellipsis">
       
-        RISC-V Timing Measurement
+        Why the Side-Channel Persists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#risc-v-specific-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RISC-V Specific Considerations
       
     </span>
   </a>
@@ -1372,10 +1416,10 @@
 </div>
 <hr>
 <h2 id="definition">Definition<a class="headerlink" href="#definition" title="Permanent link">¶</a></h2>
-<p>A cache timing side-channel is a <strong>microarchitectural leakage mechanism</strong> that exposes information through <strong>timing differences in memory access latency</strong>.</p>
+<p>A cache timing side-channel is a <strong>microarchitectural leakage mechanism</strong> that exposes information through <strong>timing differences in memory access latency</strong><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>.</p>
 <p>It is the primary <strong>data exfiltration channel</strong> used by both Meltdown and Spectre .</p>
 <hr>
-<h2 id="core-principle">Core Principle<a class="headerlink" href="#core-principle" title="Permanent link">¶</a></h2>
+<h2 id="core-principle">Core Principle<sup id="fnref:8"><a class="footnote-ref" href="#fn:8">6</a></sup><a class="headerlink" href="#core-principle" title="Permanent link">¶</a></h2>
 <p>Memory access latency depends on where the data resides:</p>
 <table>
 <thead>
@@ -1398,7 +1442,7 @@
 <p>This timing difference is:</p>
 <ul>
 <li>Measurable via high-resolution timers</li>
-<li>Deterministic enough to encode information</li>
+<li>Deterministic enough to encode information<sup id="fnref2:8"><a class="footnote-ref" href="#fn:8">6</a></sup></li>
 </ul>
 <details class="note">
 <summary>Note</summary>
@@ -1483,8 +1527,107 @@ D --&gt; E[Infer Cached Index]</code></pre>
 <li>Meltdown → leak across privilege boundary</li>
 <li>Spectre → leak across control-flow boundary</li>
 </ul>
+<h2 id="flushreload-interactive-walkthrough">Flush+Reload — Interactive Walkthrough <sup id="fnref:6"><a class="footnote-ref" href="#fn:6">5</a></sup><a class="headerlink" href="#flushreload-interactive-walkthrough" title="Permanent link">¶</a></h2>
+<!-- INTERACTIVE: animated Flush+Reload with probe array visualization -->
+<div style="font-family:var(--md-text-font);margin:1rem 0">
+<style>
+.fr-stage{padding:12px 14px;border-radius:8px;border:1.5px solid #ddd;margin-bottom:8px;transition:all .3s}
+.fr-stage.fr-active{border-color:#1976d2;background:#e3f2fd}
+.fr-stage.fr-done{border-color:#43a047;background:#f1f8e9}
+.fr-stage-title{font-size:12px;font-weight:600;margin-bottom:4px}
+.fr-stage-body{font-size:11px;color:#555;line-height:1.5}
+.probe-grid{display:flex;flex-wrap:wrap;gap:3px;margin:8px 0}
+.probe-cell{width:22px;height:22px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;transition:all .3s;border:1px solid #ccc;background:#eee;color:#999}
+.probe-cell.hot{background:#e53935;border-color:#b71c1c;color:#fff}
+.probe-cell.cold{background:#eee;border-color:#ccc;color:#bbb}
+.probe-cell.probing{background:#7b1fa2;border-color:#4a148c;color:#fff}
+.fr-nav{display:flex;gap:8px;margin-top:10px}
+.fr-nbtn{padding:5px 16px;border-radius:5px;border:1px solid #ddd;background:#f5f5f5;font-size:12px;cursor:pointer}
+.fr-nbtn:hover{background:#e0e0e0}
+.timing-bars{display:flex;flex-direction:column;gap:3px;margin:8px 0}
+.t-bar-row{display:flex;align-items:center;gap:6px;font-size:10px}
+.t-bar-label{width:32px;text-align:right;color:#666}
+.t-bar-track{flex:1;background:#eee;border-radius:2px;height:14px;overflow:hidden}
+.t-bar-fill{height:100%;border-radius:2px;display:flex;align-items:center;padding-left:4px;font-size:9px;font-weight:600;transition:width .4s}
+</style>
+
+<div id="fr-content"></div>
+
+<script>
+var frStep=0;
+var secret=65;
+var frStages=[
+  {title:"1 — Flush: evict probe array from all cache levels",
+   body:"All 256 entries of probe_array are evicted using clflush (x86) or cbo.inval (RISC-V Zicbom). Starting state: all cache lines cold.",
+   code:"for(int i=0;i<256;i++) clflush(&probe_array[i*512]); // [4]",
+   cells:"cold", highlight:-1, timing:false},
+  {title:"2 — Victim accesses secret → probe_array[secret × 512]",
+   body:"Victim (or speculative path) reads a secret byte (value=65=0x41='A') and uses it to index probe_array. Cache line at index 65 is loaded into L1.",
+   code:"uint8_t s = secret_mem[x]; // secret = 65\ntemp = probe_array[s * 512]; // loads cache line 65",
+   cells:"hot", highlight:secret, timing:false},
+  {title:"3 — Reload: time access to all 256 entries",
+   body:"Attacker reads every probe_array entry and measures latency with rdcycle. Entry 65 returns fast (~4 cy). All others return slow (~250 cy DRAM).",
+   code:"for(int i=0;i<256;i++){\n  t0=rdcycle(); dummy=probe_array[i*512]; t1=rdcycle();\n  times[i]=t1-t0;\n}",
+   cells:"probing", highlight:secret, timing:true},
+  {title:"4 — Recover: minimum latency index = secret byte",
+   body:"Entry 65 had the lowest latency → secret = 65 = 0x41 = 'A'. Repeat for each byte position to reconstruct arbitrary memory.",
+   code:"int secret=0;\nfor(int i=0;i<256;i++)\n  if(times[i]<THRESHOLD) secret=i;\n// secret == 65",
+   cells:"done", highlight:secret, timing:true}
+];
+
+function frRender(){
+  var s=frStages[frStep];
+  var html='';
+
+  // Stage indicator
+  html+='<div style="font-size:11px;color:#888;margin-bottom:8px">Step '+(frStep+1)+' of '+frStages.length+': <strong style="color:#1976d2">'+s.title+'</strong></div>';
+
+  // Body
+  html+='<div style="font-size:12px;color:#444;margin-bottom:8px;line-height:1.5">'+s.body+'</div>';
+
+  // Code
+  html+='<pre style="background:rgba(0,0,0,.05);border-radius:6px;padding:8px 10px;font-size:11px;margin-bottom:10px;overflow-x:auto">'+s.code+'</pre>';
+
+  // Probe grid (show 32 cells representing 0..255 in steps of 8)
+  html+='<div style="font-size:10px;color:#888;margin-bottom:4px">Probe array cache state (32 of 256 entries shown, step=8):</div>';
+  html+='<div class="probe-grid">';
+  for(var i=0;i<32;i++){
+    var idx=i*8;
+    var ishot=(idx===secret||Math.abs(idx-secret)<=4);
+    var cls='cold';
+    if(s.cells==='hot'&&ishot) cls='hot';
+    else if(s.cells==='probing') cls=(ishot?'hot':'probing');
+    else if(s.cells==='done') cls=(ishot?'hot':'cold');
+    html+='<div class="probe-cell '+cls+'">'+(ishot&&frStep>=1?'65':idx)+'</div>';
+  }
+  html+='</div>';
+
+  // Timing bars (steps 2+)
+  if(s.timing){
+    html+='<div style="font-size:10px;color:#888;margin:6px 0 4px">Access timing (selected indices):</div>';
+    html+='<div class="timing-bars">';
+    var show=[0,8,16,24,32,40,48,56,64,65,72,80,96,128,192];
+    show.forEach(function(idx){
+      var ishit=(idx===secret);
+      var t=ishit?4:220+Math.floor(Math.random()*60);
+      var w=Math.round(Math.min(t,300)/300*100);
+      html+='<div class="t-bar-row"><div class="t-bar-label">['+idx+']</div><div class="t-bar-track"><div class="t-bar-fill" style="width:'+w+'%;background:'+(ishit?'#43a047':'#90a4ae')+'"><span style="color:#fff">'+(ishit?t+' cy HIT':t+' cy')+'</span></div></div></div>';
+    });
+    html+='</div>';
+  }
+
+  // Nav
+  html+='<div class="fr-nav"><button class="fr-nbtn" onclick="frNav(-1)" '+(frStep===0?'disabled':'')+'>← Back</button><button class="fr-nbtn" onclick="frNav(1)" '+(frStep===frStages.length-1?'disabled':'')+'>Next →</button></div>';
+
+  document.getElementById('fr-content').innerHTML=html;
+}
+function frNav(d){frStep=Math.max(0,Math.min(frStages.length-1,frStep+d));frRender();}
+frRender();
+</script>
+</div>
+
 <hr>
-<h2 id="alternative-techniques">Alternative Techniques<a class="headerlink" href="#alternative-techniques" title="Permanent link">¶</a></h2>
+<h2 id="alternative-techniques">Alternative Techniques<sup id="fnref2:6"><a class="footnote-ref" href="#fn:6">5</a></sup><a class="headerlink" href="#alternative-techniques" title="Permanent link">¶</a></h2>
 <p>While Flush+Reload requires shared memory, other techniques exist:</p>
 <h3 id="primeprobe">Prime+Probe<a class="headerlink" href="#primeprobe" title="Permanent link">¶</a></h3>
 <ul>
@@ -1492,7 +1635,7 @@ D --&gt; E[Infer Cached Index]</code></pre>
 <li>Victim evicts lines</li>
 <li>Attacker measures which sets were evicted</li>
 </ul>
-<h3 id="flushflush">Flush+Flush<a class="headerlink" href="#flushflush" title="Permanent link">¶</a></h3>
+<h3 id="flushflush">Flush+Flush<sup id="fnref3:6"><a class="footnote-ref" href="#fn:6">5</a></sup><a class="headerlink" href="#flushflush" title="Permanent link">¶</a></h3>
 <ul>
 <li>Measures time taken to flush cache lines</li>
 <li>Faster and stealthier than Flush+Reload</li>
@@ -1502,15 +1645,40 @@ D --&gt; E[Infer Cached Index]</code></pre>
 <p>These techniques do not require shared memory, making them applicable in broader scenarios.</p>
 </details>
 <hr>
-<h2 id="risc-v-timing-measurement">RISC-V Timing Measurement<a class="headerlink" href="#risc-v-timing-measurement" title="Permanent link">¶</a></h2>
-<p>On RISC-V, timing is typically measured using the <strong>cycle counter</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">uint64_t</span><span class="w"> </span><span class="n">t0</span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">;</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">asm</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="p">(</span><span class="s">"rdcycle %0"</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">"=r"</span><span class="p">(</span><span class="n">t0</span><span class="p">));</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">volatile</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">probe_array</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">512</span><span class="p">];</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">asm</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="p">(</span><span class="s">"rdcycle %0"</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">"=r"</span><span class="p">(</span><span class="n">t1</span><span class="p">));</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="kt">uint64_t</span><span class="w"> </span><span class="n">latency</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t0</span><span class="p">;</span>
+<h2 id="why-the-side-channel-persists">Why the Side-Channel Persists <sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup><sup id="fnref2:2"><a class="footnote-ref" href="#fn:2">2</a></sup><a class="headerlink" href="#why-the-side-channel-persists" title="Permanent link">¶</a></h2>
+<p>The attack exploits an asymmetry:</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Rolled back after fault/misprediction?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Architectural (registers, PC)</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Microarchitectural (cache contents)</td>
+<td><strong>No</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Cache contents persist even if the instruction that caused the access was never committed. This is the fundamental property both attacks rely on.</p>
+<hr>
+<h2 id="risc-v-specific-considerations">RISC-V Specific Considerations <sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup><sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup><a class="headerlink" href="#risc-v-specific-considerations" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// rdcycle is accessible from unprivileged mode by default [3]</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1">// Access restricted via mcounteren.CY = 0</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kt">uint64_t</span><span class="w"> </span><span class="n">t0</span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">asm</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="p">(</span><span class="s">"rdcycle %0"</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">"=r"</span><span class="p">(</span><span class="n">t0</span><span class="p">));</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">volatile</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">probe_array</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">512</span><span class="p">];</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">asm</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="p">(</span><span class="s">"rdcycle %0"</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">"=r"</span><span class="p">(</span><span class="n">t1</span><span class="p">));</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="kt">uint64_t</span><span class="w"> </span><span class="n">latency</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t0</span><span class="p">;</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1">// &lt; 15 cycles → cache hit; &gt; 150 cycles → DRAM miss</span>
 </code></pre></div>
+<p>The <code>rdcycle</code> CSR provides the same timing resolution as x86 <code>rdtsc</code>. Access is controllable via <code>mcounteren</code> CSR.<sup id="fnref2:3"><a class="footnote-ref" href="#fn:3">3</a></sup></p>
+<hr>
 <p>Typical threshold:</p>
 <ul>
 <li>Cache hit: &lt; ~15 cycles</li>
@@ -1537,7 +1705,7 @@ D --&gt; E[Infer Cached Index]</code></pre>
 </tr>
 <tr>
 <td>Timing source</td>
-<td>Measures access latency</td>
+<td>Measures access latency<sup id="fnref4:3"><a class="footnote-ref" href="#fn:3">3</a></sup></td>
 </tr>
 <tr>
 <td>Deterministic cache behavior</td>
@@ -1573,11 +1741,11 @@ D --&gt; E[Infer Cached Index]</code></pre>
 </thead>
 <tbody>
 <tr>
-<td>Meltdown</td>
+<td>Meltdown<sup id="fnref5:1"><a class="footnote-ref" href="#fn:1">1</a></sup></td>
 <td>Extracts transiently accessed privileged data</td>
 </tr>
 <tr>
-<td>Spectre</td>
+<td>Spectre<sup id="fnref5:2"><a class="footnote-ref" href="#fn:2">2</a></sup></td>
 <td>Extracts speculatively accessed data</td>
 </tr>
 </tbody>
@@ -1601,21 +1769,39 @@ D --&gt; E[Infer Cached Index]</code></pre>
 <hr>
 <h2 id="tldr">TL;DR<a class="headerlink" href="#tldr" title="Permanent link">¶</a></h2>
 <ul>
-<li>Cache timing side-channel leaks data via <strong>access latency differences</strong></li>
-<li>Uses techniques like <strong>Flush+Reload</strong> and <strong>Prime+Probe</strong></li>
-<li>Encodes secrets into <strong>cache state via data-dependent access</strong></li>
-<li>Requires:<ul>
-<li>Shared cache</li>
-<li>High-resolution timer</li>
-</ul>
-</li>
-<li>Not rolled back after speculative execution</li>
-<li>Enables data exfiltration in both Meltdown and Spectre</li>
+<li>Cache timing side-channel leaks data via <strong>access latency differences</strong>(L1 ~4 cy vs DRAM ~250 cy) <sup id="fnref3:8"><a class="footnote-ref" href="#fn:8">6</a></sup></li>
+<li>Uses techniques like <strong>Flush+Reload</strong><sup id="fnref3:1"><a class="footnote-ref" href="#fn:1">1</a></sup><sup id="fnref3:2"><a class="footnote-ref" href="#fn:2">2</a></sup></li>
+<li>Alternative: <strong>Prime+Probe</strong> (no shared memory needed)<sup id="fnref4:6"><a class="footnote-ref" href="#fn:6">5</a></sup></li>
+<li>Cache state is <strong>not rolled back</strong> after speculative execution</li>
+<li>RISC-V: <code>rdcycle</code> provides required timer resolution <sup id="fnref3:3"><a class="footnote-ref" href="#fn:3">3</a></sup></li>
 </ul>
 <div class="admonition info">
-<p>The cache acts as a covert communication channel between transient execution and attacker observation.</p>
+<p>The cache acts as a covert communication channel between transient execution and attacker observation.<sup id="fnref4:1"><a class="footnote-ref" href="#fn:1">1</a></sup><sup id="fnref4:2"><a class="footnote-ref" href="#fn:2">2</a></sup></p>
 </div>
 <hr>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Lipp et al., <em>Meltdown</em>, USENIX Security 2018. <a href="../../references/#ref-1">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref3:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref4:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref5:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:2">
+<p>Kocher et al., <em>Spectre Attacks</em>, IEEE S&amp;P 2019. <a href="../../references/#ref-2">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">↩</a><a class="footnote-backref" href="#fnref2:2" title="Jump back to footnote 2 in the text">↩</a><a class="footnote-backref" href="#fnref3:2" title="Jump back to footnote 2 in the text">↩</a><a class="footnote-backref" href="#fnref4:2" title="Jump back to footnote 2 in the text">↩</a><a class="footnote-backref" href="#fnref5:2" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn:3">
+<p>RISC-V International, <em>Privileged Architecture Manual v20211203</em>. <a href="../../references/#ref-3">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">↩</a><a class="footnote-backref" href="#fnref2:3" title="Jump back to footnote 3 in the text">↩</a><a class="footnote-backref" href="#fnref3:3" title="Jump back to footnote 3 in the text">↩</a><a class="footnote-backref" href="#fnref4:3" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+<li id="fn:4">
+<p>RISC-V International, <em>Zicbom Extension v1.0</em>. <a href="../../references/#ref-4">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">↩</a></p>
+</li>
+<li id="fn:6">
+<p>Gruss et al., <em>Flush+Flush: A Fast and Stealthy Cache Attack</em>, DIMVA 2016. <a href="../../references/#ref-6">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 5 in the text">↩</a><a class="footnote-backref" href="#fnref2:6" title="Jump back to footnote 5 in the text">↩</a><a class="footnote-backref" href="#fnref3:6" title="Jump back to footnote 5 in the text">↩</a><a class="footnote-backref" href="#fnref4:6" title="Jump back to footnote 5 in the text">↩</a></p>
+</li>
+<li id="fn:8">
+<p>Patterson &amp; Hennessy, <em>Computer Organization and Design: RISC-V Edition</em>, 2017. <a href="../../references/#ref-8">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:8" title="Jump back to footnote 6 in the text">↩</a><a class="footnote-backref" href="#fnref2:8" title="Jump back to footnote 6 in the text">↩</a><a class="footnote-backref" href="#fnref3:8" title="Jump back to footnote 6 in the text">↩</a></p>
+</li>
+</ol>
+</div>
 
 
 

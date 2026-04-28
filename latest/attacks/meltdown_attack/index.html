@@ -1442,7 +1442,7 @@
 <ul>
 <li>Read <strong>privileged (kernel) memory</strong> from an unprivileged context</li>
 <li>Bypass architectural access control using <strong>speculative execution</strong></li>
-<li>Extract data via <strong>cache timing side-channel</strong> </li>
+<li>Extract data via <strong>cache timing side-channel</strong><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><sup id="fnref:6"><a class="footnote-ref" href="#fn:6">5</a></sup></li>
 </ul>
 <hr>
 <h2 id="attack-preconditions">Attack Preconditions<a class="headerlink" href="#attack-preconditions" title="Permanent link">¶</a></h2>
@@ -1501,7 +1501,8 @@ G --&gt; H[Secret Recovery]</code></pre>
 <p>Typical methods:</p>
 <ul>
 <li>x86: <code>clflush</code></li>
-<li>RISC-V: <code>cbo.inval</code> (Zicbom) or eviction loops</li>
+<li>RISC-V: <code>cbo.inval</code> (Zicbom) or eviction loops
+<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">3</a></sup></li>
 </ul>
 <hr>
 <h3 id="2-transient-faulting-load">2. Transient Faulting Load<a class="headerlink" href="#2-transient-faulting-load" title="Permanent link">¶</a></h3>
@@ -1605,7 +1606,7 @@ G --&gt; H[Secret Recovery]</code></pre>
 <h2 id="throughput">Throughput<a class="headerlink" href="#throughput" title="Permanent link">¶</a></h2>
 <p>Empirical results (from literature):</p>
 <ul>
-<li>~500–2000 bytes/sec</li>
+<li>~500–2000 bytes/sec<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup></li>
 <li>~2–8 seconds for 4 KB memory page</li>
 </ul>
 <details class="note">
@@ -1663,7 +1664,8 @@ G --&gt; H[Secret Recovery]</code></pre>
 <ul>
 <li>No MMU → no page table walk</li>
 <li>No privilege separation → no protected memory</li>
-<li>No page faults → no transient fault window</li>
+<li>No page faults → no transient fault window
+<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">2</a></sup></li>
 </ul>
 <details class="warning">
 <summary>Warning</summary>
@@ -1702,6 +1704,29 @@ G --&gt; H[Secret Recovery]</code></pre>
 <p>Meltdown is fundamentally a race between data access and permission enforcement, observable via cache state.</p>
 </div>
 <hr>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Lipp et al., <em>Meltdown</em>, USENIX Security 2018. <a href="../../references/#ref-1">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:3">
+<p>RISC-V International, <em>Privileged Architecture Manual v20211203</em>. <a href="../../references/#ref-3">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn:4">
+<p>RISC-V International, <em>Zicbom Extension v1.0</em>. <a href="../../references/#ref-4">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+<li id="fn:5">
+<p>Intel Corporation, <em>Analysis of Speculative Execution Side Channels</em>, 2018. <a href="../../references/#ref-5">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 4 in the text">↩</a></p>
+</li>
+<li id="fn:6">
+<p>Gruss et al., <em>Flush+Flush</em>, DIMVA 2016. <a href="../../references/#ref-6">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 5 in the text">↩</a></p>
+</li>
+<li id="fn:8">
+<p>Patterson &amp; Hennessy, <em>Computer Organization and Design: RISC-V Edition</em>, 2017. <a href="../../references/#ref-8">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:8" title="Jump back to footnote 6 in the text">↩</a></p>
+</li>
+</ol>
+</div>
 
 
 

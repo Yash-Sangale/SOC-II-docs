@@ -1572,7 +1572,7 @@
 <ul>
 <li>Force a victim to execute <strong>attacker-influenced speculative paths</strong></li>
 <li>Access sensitive data during speculation</li>
-<li>Leak data via <strong>cache timing side-channel</strong> </li>
+<li>Leak data via <strong>cache timing side-channel</strong><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup> </li>
 </ul>
 <hr>
 <h2 id="attack-preconditions">Attack Preconditions<a class="headerlink" href="#attack-preconditions" title="Permanent link">¶</a></h2>
@@ -1731,7 +1731,7 @@ F --&gt; G[Timing Measurement]</code></pre>
 <li>Cache state modification</li>
 <li>Timing-based observation</li>
 </ul>
-<p>Measurement example (RISC-V):</p>
+<p>Measurement example (RISC-V): Timing measurement using RISC-V cycle counter:<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup></p>
 <div id="4a7m9o" class="highlight"><pre><span></span><code><a id="__codelineno-4a7m9o-1" name="__codelineno-4a7m9o-1" href="#__codelineno-4a7m9o-1"></a><span class="kt">uint64_t</span><span class="w"> </span><span class="n">t0</span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">;</span>
 <a id="__codelineno-4a7m9o-2" name="__codelineno-4a7m9o-2" href="#__codelineno-4a7m9o-2"></a><span class="k">asm</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="p">(</span><span class="s">"rdcycle %0"</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">"=r"</span><span class="p">(</span><span class="n">t0</span><span class="p">));</span>
 <a id="__codelineno-4a7m9o-3" name="__codelineno-4a7m9o-3" href="#__codelineno-4a7m9o-3"></a><span class="k">volatile</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">probe_array</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">512</span><span class="p">];</span>
@@ -1822,7 +1822,7 @@ F --&gt; G[Timing Measurement]</code></pre>
 </ul>
 <p>Implications:</p>
 <ul>
-<li>Spectre V2 → Not applicable</li>
+<li>Spectre V2 → Not applicable<sup id="fnref2:3"><a class="footnote-ref" href="#fn:3">3</a></sup></li>
 <li>Spectre V1 → Only relevant in multi-component software systems</li>
 </ul>
 <details class="note">
@@ -1868,6 +1868,26 @@ F --&gt; G[Timing Measurement]</code></pre>
 <p>Spectre is a control-flow manipulation attack that leverages speculation to expose data without violating architectural access rules.</p>
 </div>
 <hr>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Lipp et al., <em>Meltdown</em>, USENIX Security 2018. <a href="../../references/#ref-1">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:2">
+<p>Kocher et al., <em>Spectre Attacks</em>, IEEE S&amp;P 2019. <a href="../../references/#ref-2">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn:3">
+<p>RISC-V International, <em>Privileged Architecture Manual v20211203</em>. <a href="../../references/#ref-3">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">↩</a><a class="footnote-backref" href="#fnref2:3" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+<li id="fn:5">
+<p>Intel Corporation, <em>Analysis of Speculative Execution Side Channels</em>, 2018. <a href="../../references/#ref-5">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 4 in the text">↩</a></p>
+</li>
+<li id="fn:8">
+<p>Patterson &amp; Hennessy, <em>Computer Organization and Design: RISC-V Edition</em>, 2017. <a href="../../references/#ref-8">→ References</a>&nbsp;<a class="footnote-backref" href="#fnref:8" title="Jump back to footnote 5 in the text">↩</a></p>
+</li>
+</ol>
+</div>
 
 
 
